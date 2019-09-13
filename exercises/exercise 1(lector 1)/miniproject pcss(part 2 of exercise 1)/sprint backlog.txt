@@ -1,0 +1,14 @@
+Task:
+user class
+lobby class
+frontend
+backend
+game
+
+In progress:
+
+Testing:
+
+Done:
+Class diagram
+use case diagram
