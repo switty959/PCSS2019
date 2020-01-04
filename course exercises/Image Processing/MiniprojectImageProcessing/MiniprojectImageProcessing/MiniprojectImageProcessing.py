@@ -1,22 +1,30 @@
 import cv2
 import numpy as np
-
 #getting native webcam from computer
-cam = cv2.VideoCapture(1)
+cam = cv2.VideoCapture(0)
+
+#getting the first frame
 _,firstFrame = cam.read()
+#conventing to grayscale
 firstGray = cv2.cvtColor(firstFrame,cv2.COLOR_BGR2GRAY)
+#applying gaussian blur
 firstGray = cv2.GaussianBlur(firstGray,(5,5),0)
 
 while True:
     #read output of webcam
     ret,output = cam.read()
 
+    #conventing to grayscale
     greyFrames = cv2.cvtColor(output,cv2.COLOR_BGR2GRAY)
+    #applying gaussian blur
     greyFrames = cv2.GaussianBlur(greyFrames,(5,5),0)
 
+    #difference between the first frame and webcam output
     difference = cv2.absdiff(firstGray,greyFrames)
+    #making the difference into bit color
     _, difference = cv2.threshold(difference,25,255,cv2.THRESH_BINARY)
 
+    #display windows to show different feed
     cv2.imshow("first frame",firstFrame)
     cv2.imshow("webcam with face detection",output)
     cv2.imshow("difference",difference)
@@ -25,7 +33,6 @@ while True:
         break #stop the loop
 cam.release # stop the camera
 cv2.destroyAllWindows() # kill display windows
-
 
 
 #low/high pass filters
@@ -84,3 +91,42 @@ cv2.destroyAllWindows() # kill display windows
 #cam.release # stop the camera
 #cv2.destroyAllWindows() # kill display windows
 #---------------------------------------------------------------------------------------------
+
+
+
+
+#background subtraction
+#---------------------------------------------------------------------------------------------
+#getting native webcam from computer
+#cam = cv2.VideoCapture(0)
+
+#getting the first frame
+#_,firstFrame = cam.read()
+#conventing to grayscale
+#firstGray = cv2.cvtColor(firstFrame,cv2.COLOR_BGR2GRAY)
+#applying gaussian blur
+#firstGray = cv2.GaussianBlur(firstGray,(5,5),0)
+
+#while True:
+    #read output of webcam
+    #ret,output = cam.read()
+
+    #conventing to grayscale
+    #greyFrames = cv2.cvtColor(output,cv2.COLOR_BGR2GRAY)
+    #applying gaussian blur
+    #greyFrames = cv2.GaussianBlur(greyFrames,(5,5),0)
+
+    #difference between the first frame and webcam output
+    #difference = cv2.absdiff(firstGray,greyFrames)
+    #making the difference into bit color
+    #_, difference = cv2.threshold(difference,25,255,cv2.THRESH_BINARY)
+
+    #display windows to show different feed
+    #cv2.imshow("first frame",firstFrame)
+    #cv2.imshow("webcam with face detection",output)
+    #cv2.imshow("difference",difference)
+        #wait key for break while loop
+    #if cv2.waitKey(1) == ord('0'):
+        #break #stop the loop
+#cam.release # stop the camera
+#cv2.destroyAllWindows() # kill display windows
